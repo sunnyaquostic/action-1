@@ -12,9 +12,11 @@ jobs:
 
         - name: List Repo files
           run: ls
-          
+
         - name: Execting Shell Scripting
-          run: ./ascii-shell.sh
+          run: |
+              chmod +x ascii-shell.sh
+              ./ascii-shell.sh
 
         # - name: install cowsay program
         #   run: sudo apt-get install cowsay -y
