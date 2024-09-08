@@ -1,0 +1,40 @@
+name: Matrix Configuration
+
+on: 
+    push:
+    workflow_dispatch: 
+
+jobs:
+    # this is manual way of testing your application on two different os
+    # deploy-on-ubuntu:
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #     - name: Echo Docker Details
+    #       run: docker info
+
+    #     - name: Run Images
+    #       run: docker run hello-world
+
+    # deploy-on-window:
+    #     runs-on: window-latest
+    #     steps: 
+    #     - name: Echo Docker Details
+    #       run: docker info
+
+    #     - name: Run Images
+    #       run: docker run hello-world
+
+    # using matrix to achieve same purpose
+    deploy-on-ubuntu:
+        strategy:
+            matrix:
+                os: [ubuntu-latest, ubuntu-20.04, window-latest]
+                image: [hello-world, alpine]
+        runs-on: ${{ matrix.os }}
+        steps:
+        - name: Echo Docker Details
+          run: docker info
+
+        - name: Run Images
+          run: docker run ${{ matrix.image }}
+    
