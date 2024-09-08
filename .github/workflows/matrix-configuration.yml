@@ -27,9 +27,17 @@ jobs:
     # using matrix to achieve same purpose
     deploy-on-ubuntu:
         strategy:
+            fail-fast: false
+            max-parallel: 2
             matrix:
                 os: [ubuntu-latest, ubuntu-20.04, window-latest]
                 image: [hello-world, alpine]
+                exclude:
+                    - image: alpine
+                      os: window-latest
+                include:
+                    - name: amd64/alpine
+                      os: ubuntu-20.04
         runs-on: ${{ matrix.os }}
         steps:
         - name: Echo Docker Details
